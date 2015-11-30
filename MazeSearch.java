@@ -3,7 +3,7 @@ package maze;
 import java.util.ArrayList;
 @SuppressWarnings("unused")
 public class MazeSearch {
-			public static int vert = 0;
+			public static int vert = 1;
 			public static int hor = 0;
 		public static int[][] lab = 
 						{ {1,1,1,0,1,1,0,0,0,1,1,1,1},
@@ -21,37 +21,54 @@ public class MazeSearch {
 				
 				
 
-				public static void main(String[] args) { /*throws interruptedException */
-		
-			
-		
-			System.out.println(lab.toString());
+				public static void main(String[] args) throws InterruptedException {
+							
+			traverse(vert, hor, lab);
 				
 		
 				
 	}
 
-	public static void traverse(int curIndex, int curIndex1, int[][] array) {
-
+	public static void traverse(int curIndex, int curIndex1, int[][] array) throws InterruptedException {
+			
+		Thread.sleep(500);
+		
 		lab[curIndex][curIndex1] = 3;
 				
-		//toString();		
+		toString1(lab);		
 		
-		for (int i = -1; i < 3; i++) {
+		for (int i = -1; i < 2; i++) {
 			
-			if (lab[curIndex + i][curIndex1] == 1) {
+			System.out.println(i + " " + curIndex + " " + curIndex1 + " " + lab[curIndex][curIndex1]);
+			
+			//System.out.println(curIndex + i);
+			
+			if(curIndex + i >= 0) {
+			
 				
-				curIndex = i;
-				traverse(curIndex, curIndex1, lab);
+				System.out.println("Check");
 				
-			} else if (lab[curIndex][curIndex1 + i] == 1) {
+				if (lab[curIndex + i][curIndex1] == 1) {
 				
-				curIndex1 = i;
+				curIndex =  curIndex + i;
 				traverse(curIndex, curIndex1, lab);
 				
 			}
-			
+				
 		}
+				if (curIndex1 + i > 0) {
+				
+				System.out.println("Check One");
+					
+			 if (lab[curIndex][curIndex1 + i] == 1) {
+				
+				curIndex1 = curIndex1 + i;
+				traverse(curIndex, curIndex1, lab);
+				
+			}
+		}
+		
+	}
 		
 		
 		
@@ -83,11 +100,21 @@ public class MazeSearch {
 		
 	}
 	
-	
-//	public static String toString() {
-//		
-//		return lab.deepToString(lab);
-//		
-//	}
-	
+		public static void toString1(int[][] lab) {
+			
+		 for (int i = 0; i < 8; i++) {
+			
+			for (int j = 0; j < 13; j++) {
+				
+				if (j == 13 - 1) {					
+					System.out.println(lab[i][j]);					
+				} else {
+					System.out.print(lab[i][j] + " ");
+				}
+				
+			}
+			
+		}		
+			
+		}
 }
