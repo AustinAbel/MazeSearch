@@ -20,86 +20,79 @@ public class MazeSearch {
 								
 				
 				
+				
 
 				public static void main(String[] args) throws InterruptedException {
 							
-			traverse(vert, hor, lab);
+			traverse(vert, hor);
 				
 		
 				
 	}
 
-	public static void traverse(int curIndex, int curIndex1, int[][] array) throws InterruptedException {
-			
+	public static boolean traverse(int curIndex, int curIndex1) throws InterruptedException {
+		
+		boolean foundend = false;
+		
 		Thread.sleep(500);
+		
+		for (int i = 0; i < 100; i++) {
+			
+			System.out.println("");
+			
+		}
 		
 		lab[curIndex][curIndex1] = 3;
 				
 		toString1(lab);		
 		
-		for (int i = -1; i < 2; i++) {
+		valid(curIndex, curIndex1);	
+		
+		if (curIndex == 8 && curIndex1 == 13) {
 			
-			System.out.println(i + " " + curIndex + " " + curIndex1 + " " + lab[curIndex][curIndex1]);
+			foundend = true;
+			return foundend;
+						
+		} if (foundend == false) {
 			
-			//System.out.println(curIndex + i);
-			
-			if(curIndex + i >= 0) {
-			
-				
-				System.out.println("Check");
-				
-				if (lab[curIndex + i][curIndex1] == 1) {
-				
-				curIndex =  curIndex + i;
-				traverse(curIndex, curIndex1, lab);
-				
+			if (valid(curIndex, curIndex1 - 1) == true) {
+			foundend = traverse(curIndex, curIndex1 - 1);
 			}
-				
-		}
-				if (curIndex1 + i > 0) {
-				
-				System.out.println("Check One");
-					
-			 if (lab[curIndex][curIndex1 + i] == 1) {
-				
-				curIndex1 = curIndex1 + i;
-				traverse(curIndex, curIndex1, lab);
-				
+			
+			if (valid(curIndex, curIndex1 + 1) == true) {
+			foundend = traverse(curIndex, curIndex1 + 1);
 			}
-		}
-		
+			
+			if (valid(curIndex + 1, curIndex1) == true) {
+			foundend = traverse(curIndex + 1, curIndex1);
+			}
+			
+			if (valid(curIndex - 1, curIndex1) == true) {
+			foundend = traverse(curIndex - 1, curIndex1);
+			}
 	}
+		return foundend;
 		
 		
+			
 		
-//		should return a boolean value and throw an InterruptedException
-//
-//				the end of traverse should be false to start
-//
-//				takes parameters for row and column
-//
-//				should check for a valid() location
-//
-//				if location is valid, mark the number at that location  TRIED
-//
-//				traverse should end if  the last location in the two dimensional array is located
-//
-//				run traverse against all 4 adjacent indexes, if any returns true, end
-//
-//				if an end is found grid[row][col] should equal PATH
-//
-//				skip 100 lines
-//
-//				use toString() to print maze
-//
-//				Thread.sleep(500);
-//
-//				return when ended
-
-				 
-		
-	}
+}
 	
+		private static boolean valid(int cur, int cur1) {
+		
+			if ((cur < 8) && (cur1 < 13) && (cur >= 0) && (cur1 >= 0) && lab[cur][cur1] == 1) {
+				
+				return true;
+				
+			} else {
+				
+				return false;
+				
+			}
+			
+	
+	}
+
 		public static void toString1(int[][] lab) {
 			
 		 for (int i = 0; i < 8; i++) {
