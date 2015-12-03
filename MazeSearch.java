@@ -29,10 +29,10 @@ public class MazeSearch {
 		
 				
 	}
-
+    static boolean foundend = false;
 	public static boolean traverse(int curIndex, int curIndex1) throws InterruptedException {
 		
-		boolean foundend = false;
+		
 		
 		Thread.sleep(500);
 		
@@ -46,14 +46,20 @@ public class MazeSearch {
 				
 		toString1(lab);		
 		
+		
+		
 		valid(curIndex, curIndex1);	
 		
-		if (curIndex == 8 && curIndex1 == 13) {
+		if (curIndex == lab.length -1 && curIndex1 == lab[0].length - 1) {
+			
 			
 			foundend = true;
-			return foundend;
+			System.out.println(foundend + " " + curIndex + " " + curIndex1);
+			return true;
 						
-		} if (foundend == false) {
+		} else {
+			System.out.println(foundend + " " + curIndex + " " + curIndex1);
+			if (foundend == false) {
 			
 			if (valid(curIndex, curIndex1 - 1) == true) {
 			foundend = traverse(curIndex, curIndex1 - 1);
@@ -70,6 +76,9 @@ public class MazeSearch {
 			if (valid(curIndex - 1, curIndex1) == true) {
 			foundend = traverse(curIndex - 1, curIndex1);
 			}
+			
+		}
+			
 	}
 		return foundend;
 		
